@@ -1,18 +1,18 @@
-package parkinglot;
+package parkinglot.src;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class ParkingLot {
-    private final static int motorLotSize = 20;
-    private final static int compactLotSize = 30;
-    private final static int largeLotSize = 10;
-    private static double cashier = 0;
-    private static double totalRevenue = 0;
+    private final int motorLotSize = 20;
+    private final int compactLotSize = 30;
+    private final int largeLotSize = 10;
+    private double cashier = 0;
+    private double totalRevenue = 0;
 
-    private static ParkingSpot[] motorcycleSpots = new ParkingSpot[motorLotSize];
-    private static ParkingSpot[] compactSpots = new ParkingSpot[compactLotSize];
-    private static ParkingSpot[] largeSpots = new ParkingSpot[largeLotSize];
+    private ParkingSpot[] motorcycleSpots = new ParkingSpot[motorLotSize];
+    private ParkingSpot[] compactSpots = new ParkingSpot[compactLotSize];
+    private ParkingSpot[] largeSpots = new ParkingSpot[largeLotSize];
 
     public ParkingLot() {
         for (int i = 0; i < motorcycleSpots.length; i++) {
@@ -28,19 +28,19 @@ public class ParkingLot {
         }
     }
 
-    public static int getMotorLotSize() {
+    public int getMotorLotSize() {
         return motorLotSize;
     }
 
-    public static int getCompactLotSize() {
+    public int getCompactLotSize() {
         return compactLotSize;
     }
 
-    public static int getLargeLotSize() {
+    public int getLargeLotSize() {
         return largeLotSize;
     }
 
-    public static String parkVehicle(Vehicle vehicle, VehicleType vehicleType) {
+    public String parkVehicle(Vehicle vehicle, VehicleType vehicleType) {
         if (vehicleType == VehicleType.MOTORCYCLE) {
             for (ParkingSpot spot : motorcycleSpots) {
                 if (spot.isAvailable()) {
@@ -70,7 +70,7 @@ public class ParkingLot {
         return null;
     }
 
-    public static Number[] unparkVehicle(ParkingSpot vehicleSpot) {
+    public Number[] unparkVehicle(ParkingSpot vehicleSpot) {
         long duration = parkingDuration(vehicleSpot);
         double moneyCharge = vehicleCharge(vehicleSpot, duration);
         cashier += moneyCharge;
@@ -78,7 +78,7 @@ public class ParkingLot {
         return new Number[] {duration, moneyCharge};
     }
 
-    public static int[] parkingStatus() {
+    public int[] parkingStatus() {
         int motorSpotsOccupied = 0;
         for (ParkingSpot spot : motorcycleSpots) {
             if (!spot.isAvailable()) {
@@ -102,7 +102,7 @@ public class ParkingLot {
         return new int[] {motorSpotsOccupied, compactSpotsOccupied, largeSpotsOccupied};
     }
 
-    public static ParkingSpot findVehicle(String licensePlate) {
+    public ParkingSpot findVehicle(String licensePlate) {
         for (ParkingSpot spot : motorcycleSpots) {
             if (spot.getParkedVehicle() != null && spot.getParkedVehicle().getPlate().equals(licensePlate)) {
                 return spot;
@@ -123,7 +123,7 @@ public class ParkingLot {
         return null;
     }
 
-    public static long parkingDuration(ParkingSpot vehicleSpot) {
+    public long parkingDuration(ParkingSpot vehicleSpot) {
         LocalDateTime exitTime = LocalDateTime.now();
         Duration duration  = Duration.between(vehicleSpot.getParkedVehicle().getUnformattedEntryTime(), exitTime);
         long durationInSec = duration.toSeconds();
@@ -131,7 +131,7 @@ public class ParkingLot {
         return durationInSec;
     }
 
-    public static double vehicleCharge(ParkingSpot vehicleSpot, long durationInSec) {
+    public double vehicleCharge(ParkingSpot vehicleSpot, long durationInSec) {
         int fifteenSecBlocks = (int) (durationInSec + 15 - 1) / 15;
         double dollarPerFifteenSec = vehicleSpot.getParkedVehicle().getType().getFifteenSecondsRate();
         double moneyCharge = dollarPerFifteenSec * fifteenSecBlocks;
@@ -140,7 +140,7 @@ public class ParkingLot {
     }
 
 
-    public static double getTotalRevenue() {
+    public double getTotalRevenue() {
         double motorSpotRevenue = 0;
         double compactSpotRevenue = 0;
         double largeSpotRevenue = 0;

@@ -1,4 +1,4 @@
-package parkinglot;
+package parkinglot.src;
 
 public class ParkingSpot {
     private final String spotID;

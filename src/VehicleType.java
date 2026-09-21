@@ -1,4 +1,4 @@
-package parkinglot;
+package parkinglot.src;
 
 public enum VehicleType {
     MOTORCYCLE(3.00),

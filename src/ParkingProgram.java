@@ -1,11 +1,11 @@
-package parkinglot;
+package parkinglot.src;
 
 import java.util.Scanner;
 
 public class ParkingProgram {
     public static void main() {
         Scanner scnr = new Scanner(System.in);
-        new ParkingLot();
+        ParkingLot lot = new ParkingLot();
 
         while (true) {
             System.out.print("\n\n==========");
@@ -45,7 +45,7 @@ public class ParkingProgram {
                 String licensePlate = scnr.nextLine();
 
                 Vehicle vehicle = new Vehicle(type, licensePlate);
-                String parkingStatus = ParkingLot.parkVehicle(vehicle, vehicle.getType());
+                String parkingStatus = lot.parkVehicle(vehicle, vehicle.getType());
 
                 if (parkingStatus != null) {
                     System.out.println("\nVehicle parked successfully.");
@@ -57,10 +57,10 @@ public class ParkingProgram {
             else if (choice == 2) {
                 System.out.print("\n\nLicense Plate: ");
                 String licensePlate = scnr.nextLine();
-                ParkingSpot vehicleSpot = ParkingLot.findVehicle(licensePlate);
+                ParkingSpot vehicleSpot = lot.findVehicle(licensePlate);
 
                 if (vehicleSpot != null) {
-                    Number[] parkingInfo = ParkingLot.unparkVehicle(vehicleSpot);
+                    Number[] parkingInfo = lot.unparkVehicle(vehicleSpot);
                     long duration = (long) parkingInfo[0];
                     double moneyCharge = (double) parkingInfo[1];
                     System.out.println("\nVehicle removed.");
@@ -76,7 +76,7 @@ public class ParkingProgram {
                 System.out.print("\n\nLicense Plate: ");
                 String licensePlate = scnr.nextLine();
 
-                ParkingSpot vehicleSpot = ParkingLot.findVehicle(licensePlate);
+                ParkingSpot vehicleSpot = lot.findVehicle(licensePlate);
                 if (vehicleSpot != null) {
                     System.out.println(vehicleSpot);
                 }
@@ -85,26 +85,26 @@ public class ParkingProgram {
                 }
             }
             else if (choice == 4) {
-                int[] parkingStatus = ParkingLot.parkingStatus();
+                int[] parkingStatus = lot.parkingStatus();
 
                 System.out.println("\nMotorcycle Spots");
-                System.out.println("Occupied: " + parkingStatus[0] + " / " + ParkingLot.getMotorLotSize());
+                System.out.println("Occupied: " + parkingStatus[0] + " / " + lot.getMotorLotSize());
 
                 System.out.println("\nCompact Spots");
-                System.out.println("Occupied: " + parkingStatus[1] + " / " + ParkingLot.getCompactLotSize());
+                System.out.println("Occupied: " + parkingStatus[1] + " / " + lot.getCompactLotSize());
 
                 System.out.println("\nLarge Spots");
-                System.out.println("Occupied: " + parkingStatus[2] + " / " + ParkingLot.getLargeLotSize());
+                System.out.println("Occupied: " + parkingStatus[2] + " / " + lot.getLargeLotSize());
             }
             else if (choice == 5) {
-                int[] parkingStatus = ParkingLot.parkingStatus();
+                int[] parkingStatus = lot.parkingStatus();
 
-                System.out.println("\nMotorcycle: " + (ParkingLot.getMotorLotSize() - parkingStatus[0]));
-                System.out.println("\nCompact: " + (ParkingLot.getCompactLotSize() - parkingStatus[1]));
-                System.out.println("\nLarge: " + (ParkingLot.getLargeLotSize() - parkingStatus[2]));
+                System.out.println("\nMotorcycle: " + (lot.getMotorLotSize() - parkingStatus[0]));
+                System.out.println("\nCompact: " + (lot.getCompactLotSize() - parkingStatus[1]));
+                System.out.println("\nLarge: " + (lot.getLargeLotSize() - parkingStatus[2]));
             }
             else if (choice == 6) {
-                double totalRevenue = ParkingLot.getTotalRevenue();
+                double totalRevenue = lot.getTotalRevenue();
                 System.out.printf("\n\nTotal Revenue: $%.0f", totalRevenue);
             }
             else if (choice == 7) {
