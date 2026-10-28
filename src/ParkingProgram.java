@@ -3,7 +3,7 @@ package parkinglot.src;
 import java.util.Scanner;
 
 public class ParkingProgram {
-    public static void main() {
+    public static void main(String[] args) {
         Scanner scnr = new Scanner(System.in);
         ParkingLot lot = new ParkingLot();
 
